@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         '/': (context)=> new HomePage(title:'首页'),
       },
       theme: ThemeData(
-        primaryColor: Colors.indigoAccent,
+        primaryColor: Color.fromARGB(255, 57, 188, 156),
         highlightColor: Color.fromRGBO(255, 255, 255, 0.6),
         splashColor: Colors.white70
       ),
