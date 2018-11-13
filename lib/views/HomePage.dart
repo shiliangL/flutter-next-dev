@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutternext/components/DrawerLayout.dart';
 
+import 'package:flutternext/views/ListPage.dart';
+import 'package:flutternext/views/ViewsPage.dart';
+import 'package:flutternext/views/My.dart';
+
+import 'package:flutternext/views/tab/TopList.dart';
+import 'package:flutternext/views/tab/ActivityList.dart';
+import 'package:flutternext/views/tab/ClassType.dart';
+import 'package:flutternext/views/tab/Collection.dart';
+
+
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
   final String title;
@@ -33,35 +43,43 @@ class _HomePageState extends State<HomePage> {
   }
 
   _getViewPage() {
+    debugPrint('$_curIndex');
     switch (_curIndex) {
       case 0:
-        return new TabBarView(
-          children: [
-            new Center(child: new Text("首页")),
-            new Center(child: new Text("首页")),
+        return TabBarView(
+          children: <Widget>[
+            new TopList(),
+            new ActivityList(),
+            new ClassType(),
+            new Collection(),
           ],
         );
       case 1:
-        return new TabBarView(
-          children: [
-            new Center(child: new Text("列表")),
-            new Center(child: new Text("列表")),
-          ],
-        );
+        return new ListPage();
       case 2:
-        return new TabBarView(
-          children: [
-            new Center(child: new Text("历史")),
-            new Center(child: new Text("历史")),
-          ],
-        );
+        return new ViewsPage();
       case 3:
-        return new TabBarView(
-          children: [
-            new Center(child: new Text("我的")),
-            new Center(child: new Text("我的")),
-          ],
-        );
+        return new My();
+    }
+  }
+
+  _getBottom() {
+    if (_curIndex == 0) {
+      return TabBar(
+        isScrollable: false,
+        unselectedLabelColor: Colors.black38,
+        indicatorColor: Colors.black54,
+        indicatorSize: TabBarIndicatorSize.label,
+        indicatorWeight: 1.0,
+        tabs: <Widget>[
+          Tab(icon: Icon(Icons.shopping_cart)),
+          Tab(icon: Icon(Icons.spa)),
+          Tab(icon: Icon(Icons.star)),
+          Tab(icon: Icon(Icons.apps)),
+        ],
+      );
+    } else {
+      return null;
     }
   }
 
@@ -72,16 +90,21 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar(
-          title: Text(_getTitle(),style: TextStyle(fontSize: 18.0, letterSpacing: 3.0, color: Colors.white)),
+          title: Text(_getTitle(),style: TextStyle(fontSize: 18.0, letterSpacing: 3.0)),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.search),
-              color: Colors.white,
               tooltip: 'Search',
               onPressed: () => debugPrint('$_curIndex'),
-            )
+            ),
           ],
           elevation: 0.0,
+          // leading: IconButton(
+          //   icon: Icon(Icons.menu),
+          //   color: Colors.white,
+          //   onPressed: ()=> debugPrint('$_curIndex'),
+          // ),
+          bottom: _getBottom(),
         ),
         body: _getViewPage(),
         drawer: new Drawer(
