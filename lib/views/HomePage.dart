@@ -10,10 +10,11 @@ import 'package:flutternext/views/tab/ActivityList.dart';
 import 'package:flutternext/views/tab/ClassType.dart';
 import 'package:flutternext/views/tab/Collection.dart';
 
-
 class HomePage extends StatefulWidget {
+
   HomePage({Key key, this.title}) : super(key: key);
   final String title;
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -22,6 +23,7 @@ class _HomePageState extends State<HomePage> {
   int _curIndex = 0;
 
   void _onTapHandler(int index) {
+    if (index == _curIndex ) return;
     setState(() {
       _curIndex = index;
     });
@@ -43,7 +45,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   _getViewPage() {
-    debugPrint('$_curIndex');
     switch (_curIndex) {
       case 0:
         return TabBarView(
@@ -60,26 +61,6 @@ class _HomePageState extends State<HomePage> {
         return new ViewsPage();
       case 3:
         return new My();
-    }
-  }
-
-  _getBottom() {
-    if (_curIndex == 0) {
-      return TabBar(
-        isScrollable: false,
-        unselectedLabelColor: Colors.black38,
-        indicatorColor: Colors.black54,
-        indicatorSize: TabBarIndicatorSize.label,
-        indicatorWeight: 1.0,
-        tabs: <Widget>[
-          Tab(icon: Icon(Icons.shopping_cart)),
-          Tab(icon: Icon(Icons.spa)),
-          Tab(icon: Icon(Icons.star)),
-          Tab(icon: Icon(Icons.apps)),
-        ],
-      );
-    } else {
-      return null;
     }
   }
 
@@ -104,7 +85,21 @@ class _HomePageState extends State<HomePage> {
           //   color: Colors.white,
           //   onPressed: ()=> debugPrint('$_curIndex'),
           // ),
-          bottom: _getBottom(),
+          bottom: _curIndex == 0
+              ? new TabBar(
+                  isScrollable: false,
+                  unselectedLabelColor: Colors.black38,
+                  indicatorColor: Colors.black54,
+                  indicatorSize: TabBarIndicatorSize.label,
+                  indicatorWeight: 1.0,
+                  tabs: <Widget>[
+                    Tab(icon: Icon(Icons.shopping_cart)),
+                    Tab(icon: Icon(Icons.spa)),
+                    Tab(icon: Icon(Icons.star)),
+                    Tab(icon: Icon(Icons.apps)),
+                  ],
+                )
+              : null,
         ),
         body: _getViewPage(),
         drawer: new Drawer(
@@ -140,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                       : "assets/images/off_history.png",
                   height: 28.0,
                 ),
-                title: Text('历史')),
+                title: Text('组件')),
             BottomNavigationBarItem(
                 icon: Image.asset(
                   _curIndex == 3
