@@ -29,24 +29,24 @@ const(声明常量,声明编译期的常量);
 
 ```dart
 +数值型-Number
-  - 整型
-  - 浮点型
-  - 运算符:+,-,*,/, ~/(取整),%(取余)
-  - 常用属性:isNaN,isEven,isOdd等(是否是)
-  - 常用方法:abs(),round(),floot(),ceil(),toInt(),toDouble()
+-整型
+-浮点型
+-运算符:+,-,*,/, ~/(取整),%(取余)
+-常用属性:isNaN,isEven,isOdd等(是否是)
+-常用方法:abs(),round(),floot(),ceil(),toInt(),toDouble()
 
 +字符串-String
-  - 运算符:+,*,==,[]
-  - 差值表达式:${}
-  - 常用属性:length,isEmpty,isNotEmpty
-  - 常用方法:
+-运算符:+,*,==,[]
+-差值表达式:${}
+-常用属性:length,isEmpty,isNotEmpty
+-常用方法:
 
 布尔值-Boolean
 
 +列表-List(和数值是通用的概念)
-  -
-  -
-  -
+-
+-
+-
 
 键值对-Map
 
