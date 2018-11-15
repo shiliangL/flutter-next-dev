@@ -9,6 +9,7 @@ import 'package:flutternext/views/tab/TopList.dart';
 import 'package:flutternext/views/tab/ActivityList.dart';
 import 'package:flutternext/views/tab/ClassType.dart';
 import 'package:flutternext/views/tab/Collection.dart';
+import 'package:flutternext/utils/HttpUtil.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -21,12 +22,28 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _curIndex = 0;
+  Map response;
 
   void _onTapHandler(int index) {
     if (index == _curIndex ) return;
     setState(() {
       _curIndex = index;
     });
+  }
+  
+  _fetchData() async{
+    String url = 'productInfo/listApp';
+    const data = {'index': 1, 'size': 10};
+    response = await new HttpUtil().get(url, data: data);
+    debugPrint('$response');
+  }
+
+  @override
+  void initState() {
+    debugPrint('初始化');
+    // TODO: implement initState
+    super.initState();
+    _fetchData();
   }
 
   _getTitle() {
@@ -76,7 +93,7 @@ class _HomePageState extends State<HomePage> {
             IconButton(
               icon: Icon(Icons.search),
               tooltip: 'Search',
-              onPressed: () => debugPrint('$_curIndex'),
+              onPressed: () => Navigator.pushNamed(context, '/search'),
             ),
           ],
           elevation: 0.0,
